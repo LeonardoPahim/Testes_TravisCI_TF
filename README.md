@@ -7,7 +7,8 @@ Teste e Confiabilidade de Sistemas 2021/1
 </b>
 
 Resultado dos testes:
-[<img alt="Build Status" src="https://www.travis.ci.com/leonardopahim/testes_travisci_tf.svg?branch=main" height="40">][travis-url]
+
+[<img alt="Build Status" src="https://www.travis-ci.com/leonardopahim/testes_travisci_tf.svg?branch=main" height="40">][travis-url]
 =
 <b><h2> Travis [![License][license-img]][license-url]
 </h2></b>
@@ -27,4 +28,8 @@ License
 MIT License. See [LICENSE](LICENSE) for details.
 
 [main-url]: https://github.com/leonardopahim/testes_travisci_tf
-[license-url]: https://github.com/rafaelgaribotti/tcs-tf-2021-1/blob/main/LICENSE
+[readme-url]: https://github.com/leonardopahim/testes_travisci_tf/blob/main/README.md
+[license-url]: https://github.com/leonardopahim/testes_travisci_tf/blob/main/LICENSE
+[license-img]: https://img.shields.io/github/license/rsp/travis-hello-modern-cpp.svg
+[travis-url]: https://www.travis-ci.com/leonardopahim/testes_travisci_tf
+[travis-img]: https://www.travis-ci.com/leonardopahim/testes_travisci_tf.svg?branch=master
