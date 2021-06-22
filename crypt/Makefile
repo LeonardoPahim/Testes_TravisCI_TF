@@ -19,6 +19,9 @@ CFLAGS += -Wstrict-prototypes
 CFLAGS += -Wundef
 CFLAGS += -Wold-style-definition
 
+##### Custom Flags #####
+CFLAGS += -Wstrict-prototypes
+
 ##### Project specific libraries #####
 UNITY_ROOT=../Unity
 CLEANUP = rm -f
