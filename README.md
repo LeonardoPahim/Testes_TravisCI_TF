@@ -10,7 +10,9 @@ Resultado dos testes:
 
 [<img alt="Build Status" src="https://www.travis-ci.com/leonardopahim/testes_travisci_tf.svg?branch=main" height="40">][travis-url]
 =
-<b><h2> Travis Crypt [![License][license-img]][license-url]
+Biblioteca utilizada:
+
+<b><h2> Travis [![License][license-img]][license-url]
 </h2></b>
 
 Important files:
@@ -22,6 +24,10 @@ Author
 ------
 [**Rafael Garibotti**](https://br.linkedin.com/in/rafaelgaribotti)
 
+Co-Authors
+------
+[**Leonardo Pahim**](https://br.linkedin.com/in/leonardopahim)
+[**Rafaella Doki**](https://br.linkedin.com/in/rafaelladoki)
 
 License
 -------
@@ -31,5 +37,8 @@ MIT License. See [LICENSE](LICENSE) for details.
 [readme-url]: https://github.com/leonardopahim/testes_travisci_tf/blob/main/README.md
 [license-url]: https://github.com/leonardopahim/testes_travisci_tf/blob/main/LICENSE
 [license-img]: https://img.shields.io/github/license/rsp/travis-hello-modern-cpp.svg
+
 [travis-url]: https://www.travis-ci.com/leonardopahim/testes_travisci_tf
 [travis-img]: https://www.travis-ci.com/leonardopahim/testes_travisci_tf.svg?branch=master
+
+[github-follow-url]: https://github.com/leonardopahim/
