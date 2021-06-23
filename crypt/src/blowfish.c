@@ -8,8 +8,6 @@
 // 1.0       2021-06-08   Initial version.
 //-----------------------------------------------------------------------------
 
-#include <stdio.h>
-#include <stdlib.h>
 #include "blowfish.h"
 
 //-----------------------------------------------------------------------------
@@ -93,16 +91,14 @@ blowfish_dec(BLOWFISH_CTX *ctx, unsigned int *xl, unsigned int *xr){
 void
 blowfish_init(BLOWFISH_CTX *ctx, unsigned int *key, int keyLen) {
   int i, j;
-  unsigned int data, datal, datar;
+  unsigned int datal, datar;
 
   for (i = 0; i < 4; i++) {
     for (j = 0; j < 256; j++)
       ctx->S[i][j] = ORIG_S[i][j];
   }
 
-  j = 0;
   for (i = 0; i < N + 2; ++i) {
-    data = 0x00000000;
     ctx->P[i] = ORIG_P[i] ^ key[i % keyLen];
   }
 

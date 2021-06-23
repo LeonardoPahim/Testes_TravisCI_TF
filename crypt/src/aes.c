@@ -26,7 +26,7 @@ getSBoxInvert(uint8_t num) {
 // This function produces Nb(Nr+1) round keys. The round keys are used in each round to decrypt the states. 
 void
 KeyExpansion(void) {
-  uint32_t i, k;
+  uint8_t i, k;
   uint8_t tempa[4]; // Used for the column/row operations
 
   // The first round key is the key itself.
@@ -148,11 +148,11 @@ xtime(uint8_t x) {
 void
 MixColumns(void) {
   uint8_t i;
-  uint8_t Tmp, Tm, t;
+  //uint8_t Tmp; // GARIBA TESTAR
   for(i = 0; i < 4; ++i) {  
-    t   = state[i][0];
-    Tmp = state[i][0] ^ state[i][1] ^ state[i][2] ^ state[i][3] ;
-    Tm  = state[i][0] ^ state[i][1] ; Tm = xtime(Tm);  state[i][0] ^= Tm ^ Tmp ;
+    uint8_t t   = state[i][0];
+    uint8_t Tmp = state[i][0] ^ state[i][1] ^ state[i][2] ^ state[i][3] ;
+    uint8_t Tm  = state[i][0] ^ state[i][1] ; Tm = xtime(Tm);  state[i][0] ^= Tm ^ Tmp ;
     Tm  = state[i][1] ^ state[i][2] ; Tm = xtime(Tm);  state[i][1] ^= Tm ^ Tmp ;
     Tm  = state[i][2] ^ state[i][3] ; Tm = xtime(Tm);  state[i][2] ^= Tm ^ Tmp ;
     Tm  = state[i][3] ^ t ;           Tm = xtime(Tm);  state[i][3] ^= Tm ^ Tmp ;
@@ -175,12 +175,11 @@ Multiply(uint8_t x, uint8_t y) {
 void
 InvMixColumns(void) {
   uint8_t i;
-  uint8_t a, b, c, d;
   for(i = 0; i < 4; ++i) { 
-    a = state[i][0];
-    b = state[i][1];
-    c = state[i][2];
-    d = state[i][3];
+    uint8_t a = state[i][0];
+    uint8_t b = state[i][1];
+    uint8_t c = state[i][2];
+    uint8_t d = state[i][3];
 
     state[i][0] = Multiply(a, 0x0e) ^ Multiply(b, 0x0b) ^ Multiply(c, 0x0d) ^ Multiply(d, 0x09);
     state[i][1] = Multiply(a, 0x09) ^ Multiply(b, 0x0e) ^ Multiply(c, 0x0b) ^ Multiply(d, 0x0d);

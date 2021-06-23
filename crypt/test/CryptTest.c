@@ -4,6 +4,8 @@
 
 #include "unity.h"
 
+char fail_message[40] = "This test was meant to fail";
+
 
 const unsigned int input[4] = {0xA5A5A5A5L, 0x01234567L, 0xFEDCBA98L, 0x5A5A5A5AL};
 
@@ -201,9 +203,72 @@ void BLOWFISH_256_test_decoding(){
    TEST_ASSERT_EQUAL_INT32_ARRAY(input, output, 4);
 }
 
+// type 
+// 0 = XTEA
+// 1 = AES-128
+// 2 = AES-192
+// 3 = AES-256
+// 4 = BLOWFISH-128
+// 5 = BLOWFISH-192
+// 6 = BLOWFISH-256
+//
+// enc_dec
+// 0 = decoder
+// 1 = encoder
 
+//These tests should fail
+//Input smaller than expected
+void AES_128_encoding_bad_input(){
+   unsigned int local_input[3];
+   memcpy(local_input, input, sizeof(unsigned int)*3); 
+   unsigned int output[4];
+   crypt(key_4, local_input, 1, 1, output);
+   TEST_ASSERT_EQUAL_HEX_ARRAY_MESSAGE(AES_128_encoded, output, 4, fail_message);
+}
+//Input smaller than expected
+void BLOWFISH_128_encoding_bad_input(){
+   unsigned int local_input[3];
+   memcpy(local_input, input, sizeof(unsigned int)*3); 
+   unsigned int output[4];
+   crypt(key_4, local_input, 4, 1, output);
+   TEST_ASSERT_EQUAL_HEX_ARRAY_MESSAGE(BLOWFISH_128_encoded, output, 4, fail_message);
+}
+//Type is different than expected for this algorithm
+void AES_256_encoding_bad_type(){
+   unsigned int local_input[4];
+   memcpy(local_input, input, sizeof(unsigned int)*4); 
+   unsigned int output[4];
+   crypt(key_8, local_input, 2, 1, output);
+   TEST_ASSERT_EQUAL_HEX_ARRAY_MESSAGE(AES_256_encoded, output, 4, fail_message);
+}
+//Type value is invalid
+void AES_192_encoding_bad_type(){
+   unsigned int local_input[4];
+   memcpy(local_input, input, sizeof(unsigned int)*4); 
+   unsigned int output[4];
+   crypt(key_6, local_input, 9, 1, output);
+   TEST_ASSERT_EQUAL_HEX_ARRAY_MESSAGE(AES_192_encoded, output, 4, fail_message);
+}
+//Key is smaller than required for this algorithm
+void AES_192_encoding_bad_key(){
+   unsigned int local_input[4];
+   memcpy(local_input, input, sizeof(unsigned int)*4); 
+   unsigned int output[4];
+   unsigned int result[4];
+   crypt(key_4, local_input, 2, 1, output);
+   TEST_ASSERT_EQUAL_HEX_ARRAY_MESSAGE(AES_192_encoded, output, 4, fail_message);
+}
 
+void BLOWFISH_256_decoding_bad_key(){
+   unsigned int local_input[4];
+   memcpy(local_input, input, sizeof(unsigned int)*4); 
+   unsigned int output[4];
+   unsigned int result[4];
+   crypt(key_6, local_input, 6, 1, output);
+   TEST_ASSERT_EQUAL_HEX_ARRAY_MESSAGE(input, output, 4, fail_message);
+}
 
+   
 
 
 

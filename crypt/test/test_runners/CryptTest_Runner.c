@@ -81,6 +81,15 @@ int main(void)
   RUN_TEST(BLOWFISH_256_test_decoding, 170);
 
   //Devem falhar
+  RUN_TEST(AES_128_encoding_bad_input, 220);
+  RUN_TEST(BLOWFISH_128_encoding_bad_input, 228);
+  RUN_TEST(AES_256_encoding_bad_type, 236);
+  RUN_TEST(AES_192_encoding_bad_type, 244);
+  RUN_TEST(AES_192_encoding_bad_key, 253);
+  RUN_TEST(BLOWFISH_256_decoding_bad_key, 262);
+
+
+
  
   return (UnityEnd());
 }

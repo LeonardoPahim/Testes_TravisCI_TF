@@ -16,23 +16,23 @@
 // The number of columns comprising a state in AES. This is a constant in AES. Value=4
 #define Nb 4
 
-static uint8_t Nk;      // The number of 32 bit words in a key
-static uint8_t KEYLEN;  // Key length in bytes
-static uint8_t Nr;      // The number of rounds in AES Cipher
+uint8_t Nk;      // The number of 32 bit words in a key
+uint8_t KEYLEN;  // Key length in bytes
+uint8_t Nr;      // The number of rounds in AES Cipher
 
 // state - array holding the intermediate results during decryption.
-static uint8_t state[4][4];
+uint8_t state[4][4];
 
 // The array that stores the round keys.
-static uint8_t RoundKey[240];
+uint8_t RoundKey[240];
 
 // The Key input to the AES Program
-static const uint32_t* Key;
+const uint32_t* Key;
 
 // The lookup-tables are marked const so they can be placed in read-only storage instead of RAM
 // The numbers below can be computed dynamically trading ROM for RAM - 
 // This can be useful in (embedded) bootloader applications, where ROM is often limited.
-static const uint8_t sbox[256] = {
+const uint8_t sbox[256] = {
   //0     1    2      3     4    5     6     7      8    9     A      B    C     D     E     F
   0x63, 0x7c, 0x77, 0x7b, 0xf2, 0x6b, 0x6f, 0xc5, 0x30, 0x01, 0x67, 0x2b, 0xfe, 0xd7, 0xab, 0x76,
   0xca, 0x82, 0xc9, 0x7d, 0xfa, 0x59, 0x47, 0xf0, 0xad, 0xd4, 0xa2, 0xaf, 0x9c, 0xa4, 0x72, 0xc0,
