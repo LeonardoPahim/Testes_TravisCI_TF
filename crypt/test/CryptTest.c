@@ -13,12 +13,12 @@ const unsigned int key_4[4] = {
    0xDEADBEEFL, 0x01234567L, 0x89ABCDEFL, 0xDEADBEEFL
 };
 const unsigned int key_6[6] = { 
-   0xDEADBEEFL, 0x01234567L, 0x89ABCDEFL, 0xDEADBEEFL,
-   0xDEADBEEFL, 0x01234567L
+   0x78BF328FL, 0x7D52C3A9L, 0x2C937A9FL, 0xA5218F39EL,
+   0x3F72A512L, 0x3B4C26A6L
 };
 const unsigned int key_8[8] = {
-    0xDEADBEEFL, 0x01234567L, 0x89ABCDEFL, 0xDEADBEEFL,
-    0xDEADBEEFL, 0x01234567L, 0x89ABCDEFL, 0xDEADBEEFL
+    0x3F72A512L, 0x2C937A9FL, 0xDEADBEEFL, 0xA5218F39EL,
+    0x3B4C26A6L, 0x01234567L, 0xA2376CFBL, 0xA25C3D7A0L
   };
 
 const unsigned int XTEA_encoded[4] = {0x089975E9L, 0x2555F334L, 0xCE76E4F2L, 0x4D932AB3L};
@@ -27,19 +27,19 @@ const unsigned int XTEA_encoded[4] = {0x089975E9L, 0x2555F334L, 0xCE76E4F2L, 0x4
 const unsigned int AES_128_encoded[4] = {0x237549D4L, 0xCDCEA7BEL, 0x0FE7D162L, 0xCC9161D3L};
 
 
-const unsigned int AES_192_encoded[4] = {0xEBB4CD9EL, 0xDA7CBDE0L, 0x9E520F4CL, 0x54BE5A98L};
+const unsigned int AES_192_encoded[4] = {0x5C69F75CL, 0x7BD3C3EBL, 0xAAD816BEL, 0xB05A9785L};
 
 
-const unsigned int AES_256_encoded[4] = {0x206BF119L, 0x7A085AC8L, 0xB31B2AD0L, 0x4843FFC1L};
+const unsigned int AES_256_encoded[4] = {0x2E3D06DDL, 0x333C7DC3L, 0x8FE99503L, 0x00EACE54L};
 
 
 const unsigned int BLOWFISH_128_encoded[4] = {0x24B9C5E1L, 0xB06FBF71L, 0x5527E5FAL, 0x3502EE1AL};
 
 
-const unsigned int BLOWFISH_192_encoded[4] = {0xA5E31925L, 0x25FE7048L, 0x4254F298L, 0x4B71D955L};
+const unsigned int BLOWFISH_192_encoded[4] = {0x57A73CF1L, 0xE9F5774EL, 0x9F46D5CFL, 0x8CF3A0C0L};
 
 
-const unsigned int BLOWFISH_256_encoded[4] = {0x24B9C5E1L, 0xB06FBF71L, 0x5527E5FAL, 0x3502EE1AL};
+const unsigned int BLOWFISH_256_encoded[4] = {0x4D0B2FD6L, 0x9C5BEB43L, 0xD5857AB7L, 0x4882A23BL};
 
 
 
@@ -93,7 +93,7 @@ void AES_128_test_encoding(){
    unsigned int local_input[4];
    memcpy(local_input, input, sizeof(unsigned int)*4); 
    unsigned int output[4];
-   crypt(key_6, local_input, 1, 1, output);
+   crypt(key_4, local_input, 1, 1, output);
    TEST_ASSERT_EQUAL_HEX_ARRAY(AES_128_encoded, output, 4);
 }
 
@@ -258,7 +258,7 @@ void AES_192_encoding_bad_key(){
    crypt(key_4, local_input, 2, 1, output);
    TEST_ASSERT_EQUAL_HEX_ARRAY_MESSAGE(AES_192_encoded, output, 4, fail_message);
 }
-
+//
 void BLOWFISH_256_decoding_bad_key(){
    unsigned int local_input[4];
    memcpy(local_input, input, sizeof(unsigned int)*4); 
@@ -267,6 +267,8 @@ void BLOWFISH_256_decoding_bad_key(){
    crypt(key_6, local_input, 6, 1, output);
    TEST_ASSERT_EQUAL_HEX_ARRAY_MESSAGE(input, output, 4, fail_message);
 }
+
+void 
 
    
 
