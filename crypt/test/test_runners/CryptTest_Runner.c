@@ -45,6 +45,18 @@ extern void BLOWFISH_192_test_decoding(void);
 extern void BLOWFISH_256_test_encoding(void);
 extern void BLOWFISH_256_test_decoding(void);
 
+extern void AES_128_encoding_bad_input(void);
+extern void BLOWFISH_128_encoding_bad_input(void);
+extern void AES_256_encoding_bad_type(void);
+extern void AES_192_encoding_bad_type(void);
+extern void AES_192_encoding_bad_key(void);
+extern void BLOWFISH_256_decoding_bad_key(void);
+extern void XTEA_encoding_empty_key(void);
+extern void XTEA_decoding_empty_input(void);
+extern void XTEA_decoding_bad_input(void);
+extern void AES_192_bad_enc_dec(void);
+extern void BLOWFISH_128_bad_enc_dec(void);
+
 
 
 
@@ -90,17 +102,17 @@ int main(void)
   RUN_TEST(XTEA_encoding_empty_key, 269);
   RUN_TEST(XTEA_decoding_empty_input, 278);
   RUN_TEST(XTEA_decoding_bad_input, 285);
+  RUN_TEST(AES_192_bad_enc_dec, 295);
+  RUN_TEST(BLOWFISH_128_bad_enc_dec, 303);
 
 
 
   //Ele obviamente falha os testes que deviam falhar
   //Como era pra ser
   //Essa parte eh para o Travis nao reclamar
-  printf("\n");
-  printf("------------------------\n");
-  printf("31 Tests 0 Failures 0 Ignored\n");
-  printf("PASS\n");
-
- 
+  //printf("\n");
+  //printf("------------------------\n");
+  //printf("23 Tests 0 Failures 0 Ignored\n");
+  //printf("PASS\n"); 
   return 0;
 }

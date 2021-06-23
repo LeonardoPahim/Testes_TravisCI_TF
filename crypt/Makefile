@@ -2,7 +2,8 @@
 
 
 ##### Compiler options #####
-
+GCCFLAGS = -g -Wall -Wfatal-errors
+GCC = gcc
 CC = gcc
 CFLAGS=-std=c99
 CFLAGS += -Wall
@@ -20,6 +21,9 @@ CFLAGS += -Wundef
 CFLAGS += -Wold-style-definition
 
 ##### Custom Flags #####
+GCCFLAGS += -Wstrict-prototypes
+GCCFLAGS += -Wold-style-definition
+GCCFLAGS += -Wdiscarded-qualifiers
 CFLAGS += -Wstrict-prototypes
 
 ##### Project specific libraries #####
@@ -38,13 +42,29 @@ SRC_FILES_UNITY =\
 INC_DIRS=-Isrc -I$(UNITY_ROOT)/src -I$(UNITY_ROOT)/extras/fixture/src
 SYMBOLS= 
 
-all: clean compile run
+all: clean compile run valgrind cppcheck cov
 
 compile:
-	$(CC) $(CFLAGS) $(INC_DIRS) $(SYMBOLS) $(SRC_FILES) $(SRC_FILES_UNITY) -o $(TARGET1)
+	$(CC) $(CFLAGS) $(INC_DIRS) $(SYMBOLS) $(SRC_FILES) $(SRC_FILES_UNITY) -Wstrict-prototypes --coverage -o $(TARGET1)
 
 run:
 	- ./$(TARGET1)
+
+crypt: $(SRC_FILES)
+	$(CC) $(CFLAGS) $^
+	$(CC) *.o -o app
+	rm -rf *.o
+
+valgrind:
+	- valgrind --leak-check=full --show-leak-kinds=all ./$(TARGET1) -v
+
+cppcheck:
+	- cppcheck --enable=all --suppress=missingIncludeSystem ./src/crypt.c
+
+
+cov: ./src/crypt.c
+	$(CC) $(GCCFLAGS) -fprofile-arcs -ftest-coverage -o cov ./src/crypt.c ./src/aes.c ./src/blowfish.c ./src/xtea.c
+	$(GCC) $(CFLAGS) $(INC_DIRS) $(SYMBOLS) $(SRC_FILES_UNITY) -fprofile-arcs -ftest-coverage -o $(TARGET1)
 
 ##### General commands #####
 #compile: 

@@ -13,12 +13,12 @@ const unsigned int key_4[4] = {
    0xDEADBEEFL, 0x01234567L, 0x89ABCDEFL, 0xDEADBEEFL
 };
 const unsigned int key_6[6] = { 
-   0x78BF328FL, 0x7D52C3A9L, 0x2C937A9FL, 0xA5218F39EL,
+   0x78BF328FL, 0x7D52C3A9L, 0x2C937A9FL, 0x5218F39EL,
    0x3F72A512L, 0x3B4C26A6L
 };
 const unsigned int key_8[8] = {
-    0x3F72A512L, 0x2C937A9FL, 0xDEADBEEFL, 0xA5218F39EL,
-    0x3B4C26A6L, 0x01234567L, 0xA2376CFBL, 0xA25C3D7A0L
+    0x3F72A512L, 0x2C937A9FL, 0xDEADBEEFL, 0x5218F39EL,
+    0x3B4C26A6L, 0x01234567L, 0xA2376CFBL, 0x25C3D7A0L
   };
 
 const unsigned int XTEA_encoded[4] = {0x089975E9L, 0x2555F334L, 0xCE76E4F2L, 0x4D932AB3L};
@@ -40,6 +40,36 @@ const unsigned int BLOWFISH_192_encoded[4] = {0x57A73CF1L, 0xE9F5774EL, 0x9F46D5
 
 
 const unsigned int BLOWFISH_256_encoded[4] = {0x4D0B2FD6L, 0x9C5BEB43L, 0xD5857AB7L, 0x4882A23BL};
+
+  void XTEA_test_encoding(void);
+  void XTEA_test_decoding(void);
+  void AES_128_test_encoding(void);
+  void AES_128_test_decoding(void);
+  void AES_192_test_encoding(void);
+  void AES_192_test_decoding(void);
+  void AES_256_test_encoding(void);
+  void AES_256_test_decoding(void);
+  void BLOWFISH_128_test_encoding(void);
+  void BLOWFISH_128_test_decoding(void);
+  void BLOWFISH_192_test_encoding(void);
+  void BLOWFISH_192_test_decoding(void);
+  void BLOWFISH_256_test_encoding(void);
+  void BLOWFISH_256_test_decoding(void);
+
+  //Devem falhar
+  void AES_128_encoding_bad_input(void);
+  void BLOWFISH_128_encoding_bad_input(void);
+  void AES_256_encoding_bad_type(void);
+  void AES_192_encoding_bad_type(void);
+  void AES_192_encoding_bad_key(void);
+  void BLOWFISH_256_decoding_bad_key(void);
+  void XTEA_encoding_empty_key(void);
+  void XTEA_decoding_empty_input(void);
+  void XTEA_decoding_bad_input(void);
+  void AES_192_bad_enc_dec(void);
+  void BLOWFISH_128_bad_enc_dec(void);
+
+
 
 
 
@@ -219,7 +249,7 @@ void BLOWFISH_256_test_decoding(){
 //These tests should fail
 //Input smaller than expected
 void AES_128_encoding_bad_input(){
-   unsigned int local_input[3];
+   unsigned int local_input[3] = {0, 0, 0};
    memcpy(local_input, input, sizeof(unsigned int)*3); 
    unsigned int output[4];
    crypt(key_4, local_input, 1, 1, output);
@@ -227,7 +257,7 @@ void AES_128_encoding_bad_input(){
 }
 //Input smaller than expected
 void BLOWFISH_128_encoding_bad_input(){
-   unsigned int local_input[3];
+   unsigned int local_input[3] = {0, 0, 0};
    memcpy(local_input, input, sizeof(unsigned int)*3); 
    unsigned int output[4];
    crypt(key_4, local_input, 4, 1, output);
@@ -290,4 +320,23 @@ void XTEA_decoding_bad_input(){
    memcpy(local_input, input, sizeof(unsigned int)*4); 
    crypt(key_4, output, 6, 0, result);
    TEST_ASSERT_EQUAL_HEX_ARRAY_MESSAGE(local_input, result, 4, fail_message);
+}
+//Enc_dec is not set to encoder
+void AES_192_bad_enc_dec(){
+   unsigned int local_input[4];
+   memcpy(local_input, input, sizeof(unsigned int)*4); 
+   unsigned int output[4];
+   crypt(key_6, local_input, 2, 0, output);
+   TEST_ASSERT_EQUAL_HEX_ARRAY(AES_192_encoded, output, 4);
+}
+//Enc_dec is invalid
+void BLOWFISH_128_bad_enc_dec(){
+   unsigned int local_input[4];
+   memcpy(local_input, input, sizeof(unsigned int)*4); 
+   unsigned int output[4];
+   unsigned int result[4];
+   crypt(key_4, local_input, 4, 1, output);
+   memcpy(result, output, sizeof(unsigned int)*4);
+   crypt(key_4, result, 4, 10, output);   
+   TEST_ASSERT_EQUAL_INT32_ARRAY(input, output, 4);
 }
