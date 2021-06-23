@@ -8,7 +8,7 @@ Teste e Confiabilidade de Sistemas 2021/1
 
 Resultado dos testes:
 
-[<img alt="Build Status" src="https://www.travis-ci.com/leonardopahim/testes_travisci_tf.svg?branch=main" height="40">][travis-url]
+[<img alt="Build Status" src="https://www.travis-ci.com/leonardopahim/testes_travisci_tf.svg?branch=master" height="40">][travis-url]
 =
 Biblioteca utilizada:
 
@@ -38,7 +38,7 @@ MIT License. See [LICENSE](LICENSE) for details.
 [license-url]: https://github.com/leonardopahim/testes_travisci_tf/blob/master/LICENSE
 [license-img]: https://img.shields.io/github/license/rsp/travis-hello-modern-cpp.svg
 
-[travis-url]: https://www.travis-ci.com/github/leonardopahim/testes_travisci_tf
-[travis-img]: https://www.travis-ci.com/github/leonardopahim/testes_travisci_tf.svg?branch=master
+[travis-url]: https://www.travis-ci.com/leonardopahim/testes_travisci_tf
+[travis-img]: https://www.travis-ci.com/leonardopahim/testes_travisci_tf.svg?branch=master
 
 [github-follow-url]: https://github.com/leonardopahim/
