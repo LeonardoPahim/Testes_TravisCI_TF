@@ -254,33 +254,30 @@ void AES_192_encoding_bad_key(){
    unsigned int local_input[4];
    memcpy(local_input, input, sizeof(unsigned int)*4); 
    unsigned int output[4];
-   unsigned int result[4];
    crypt(key_4, local_input, 2, 1, output);
    TEST_ASSERT_EQUAL_HEX_ARRAY_MESSAGE(AES_192_encoded, output, 4, fail_message);
 }
-//
+//Key is smaller than required for this algorithm
 void BLOWFISH_256_decoding_bad_key(){
    unsigned int local_input[4];
    memcpy(local_input, input, sizeof(unsigned int)*4); 
    unsigned int output[4];
-   unsigned int result[4];
    crypt(key_6, local_input, 6, 1, output);
    TEST_ASSERT_EQUAL_HEX_ARRAY_MESSAGE(input, output, 4, fail_message);
 }
-
-void 
-
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
+//Key is an empty array
+void XTEA_encoding_empty_key(){
+   unsigned int local_input[4];
+   unsigned int key[4] = {0, 0, 0, 0};
+   memcpy(local_input, input, sizeof(unsigned int)*4); 
+   unsigned int output[4];
+   crypt(key, local_input, 0, 1, output);
+   TEST_ASSERT_EQUAL_HEX_ARRAY_MESSAGE(input, output, 4, fail_message);
+}
+//Input is an empty array
+void XTEA_decoding_empty_input(){
+   unsigned int local_input[4] = {0, 0, 0, 0};
+   unsigned int output[4];
+   crypt(key_4, local_input, 6, 1, output);
+   TEST_ASSERT_EQUAL_HEX_ARRAY_MESSAGE(input, output, 4, fail_message);
+}
