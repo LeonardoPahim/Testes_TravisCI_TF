@@ -89,6 +89,7 @@ int main(void)
   RUN_TEST(BLOWFISH_256_decoding_bad_key, 262);
   RUN_TEST(XTEA_encoding_empty_key, 269);
   RUN_TEST(XTEA_decoding_empty_input, 278);
+  RUN_TEST(XTEA_decoding_bad_input, 285);
 
 
 
@@ -97,7 +98,7 @@ int main(void)
   //Essa parte eh para o Travis nao reclamar
   printf("\n");
   printf("------------------------\n");
-  printf("30 Tests 0 Failures 0 Ignored\n");
+  printf("31 Tests 0 Failures 0 Ignored\n");
   printf("PASS\n");
 
  

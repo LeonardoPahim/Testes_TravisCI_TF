@@ -262,7 +262,7 @@ void BLOWFISH_256_decoding_bad_key(){
    unsigned int local_input[4];
    memcpy(local_input, input, sizeof(unsigned int)*4); 
    unsigned int output[4];
-   crypt(key_6, local_input, 6, 1, output);
+   crypt(key_6, local_input, 6, 0, output);
    TEST_ASSERT_EQUAL_HEX_ARRAY_MESSAGE(input, output, 4, fail_message);
 }
 //Key is an empty array
@@ -278,6 +278,16 @@ void XTEA_encoding_empty_key(){
 void XTEA_decoding_empty_input(){
    unsigned int local_input[4] = {0, 0, 0, 0};
    unsigned int output[4];
-   crypt(key_4, local_input, 6, 1, output);
+   crypt(key_4, local_input, 6, 0, output);
    TEST_ASSERT_EQUAL_HEX_ARRAY_MESSAGE(input, output, 4, fail_message);
+}
+//Input is different from what will be decoded
+void XTEA_decoding_bad_input(){
+   unsigned int local_input[4] = {0xAB3225FDL, 0xB42CF926L, 0xB642A0C2L, 0xE67B23C8L};
+   unsigned int output[4];
+   unsigned int result[4];
+   crypt(key_4, local_input, 6, 1, output);
+   memcpy(local_input, input, sizeof(unsigned int)*4); 
+   crypt(key_4, output, 6, 0, result);
+   TEST_ASSERT_EQUAL_HEX_ARRAY_MESSAGE(local_input, result, 4, fail_message);
 }
