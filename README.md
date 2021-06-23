@@ -34,8 +34,8 @@ License
 MIT License. See [LICENSE](LICENSE) for details.
 
 [main-url]: https://github.com/leonardopahim/testes_travisci_tf
-[readme-url]: https://github.com/leonardopahim/testes_travisci_tf/blob/main/README.md
-[license-url]: https://github.com/leonardopahim/testes_travisci_tf/blob/main/LICENSE
+[readme-url]: https://github.com/leonardopahim/testes_travisci_tf/blob/master/README.md
+[license-url]: https://github.com/leonardopahim/testes_travisci_tf/blob/master/LICENSE
 [license-img]: https://img.shields.io/github/license/rsp/travis-hello-modern-cpp.svg
 
 [travis-url]: https://www.travis-ci.com/leonardopahim/testes_travisci_tf
