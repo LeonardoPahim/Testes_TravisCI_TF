@@ -38,7 +38,7 @@ MIT License. See [LICENSE](LICENSE) for details.
 [license-url]: https://github.com/leonardopahim/testes_travisci_tf/blob/master/LICENSE
 [license-img]: https://img.shields.io/github/license/rsp/travis-hello-modern-cpp.svg
 
-[travis-url]: https://www.travis-ci.com/leonardopahim/testes_travisci_tf
-[travis-img]: https://www.travis-ci.com/leonardopahim/testes_travisci_tf.svg?branch=master
+[travis-url]: https://www.travis-ci.com/github/leonardopahim/testes_travisci_tf
+[travis-img]: https://www.travis-ci.com/github/leonardopahim/testes_travisci_tf.svg?branch=master
 
 [github-follow-url]: https://github.com/leonardopahim/
