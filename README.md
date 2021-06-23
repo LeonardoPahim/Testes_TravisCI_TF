@@ -10,7 +10,7 @@ Resultado dos testes:
 
 [<img alt="Build Status" src="https://www.travis-ci.com/leonardopahim/testes_travisci_tf.svg?branch=main" height="40">][travis-url]
 =
-<b><h2> Travis [![License][license-img]][license-url]
+<b><h2> Travis Crypt [![License][license-img]][license-url]
 </h2></b>
 
 Important files:

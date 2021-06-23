@@ -1,8 +1,16 @@
 # Author: Rafael Garibotti
-
-
+MKDIR = mkdir -p
+CLEANUP = rm -f
+MKDIR = mkdir -p
+TARGET_EXTENSION=.out
 ##### Compiler options #####
-GCCFLAGS = -g -Wall -Wfatal-errors
+C_COMPILER=gcc
+ifeq ($(shell uname -s), Darwin)
+C_COMPILER=clang
+endif
+
+UNITY_ROOT=Unity
+
 GCC = gcc
 CC = gcc
 CFLAGS=-std=c99
@@ -21,13 +29,15 @@ CFLAGS += -Wundef
 CFLAGS += -Wold-style-definition
 
 ##### Custom Flags #####
+GCCFLAGS = -g -Wall -Wfatal-errors
 GCCFLAGS += -Wstrict-prototypes
 GCCFLAGS += -Wold-style-definition
 GCCFLAGS += -Wdiscarded-qualifiers
 CFLAGS += -Wstrict-prototypes
 
+
 ##### Project specific libraries #####
-UNITY_ROOT=../Unity
+UNITY_ROOT=Unity
 CLEANUP = rm -f
 MKDIR = mkdir -p
 TARGET_EXTENSION=.out
@@ -42,34 +52,53 @@ SRC_FILES_UNITY =\
 INC_DIRS=-Isrc -I$(UNITY_ROOT)/src -I$(UNITY_ROOT)/extras/fixture/src
 SYMBOLS= 
 
-all: clean compile run valgrind cppcheck cov
+all: clean compile cov runcov valgrind cppcheck clean
 
 compile:
-	$(CC) $(CFLAGS) $(INC_DIRS) $(SYMBOLS) $(SRC_FILES) $(SRC_FILES_UNITY) -Wstrict-prototypes --coverage -o $(TARGET1)
+	$(C_COMPILER) $(CFLAGS) $(INC_DIRS) -fsanitize=address -Wold-style-definition $(SRC_FILES) $(SRC_FILES_UNITY) -o $(TARGET1)
 
+crypt: $(SRC_FILES)
+		$(CC) $(CFLAGS) $^
+		$(CC) *.o -o app
+		rm -rf *.o
 run:
 	- ./$(TARGET1)
 
-crypt: $(SRC_FILES)
-	$(CC) $(CFLAGS) $^
-	$(CC) *.o -o app
-	rm -rf *.o
-
 valgrind:
-	- valgrind --leak-check=full --show-leak-kinds=all ./$(TARGET1) -v
+	#Memcheck
+	- valgrind --leak-check=full --show-leak-kinds=all ./cov -v
+
+	#Cachegrind
+	#- valgrind --tool=cachegrind ./cov -v
+
+	#Callgrind
+	#- valgrind --tool=callgrind ./cov -v	
+	
+	#Massif
+	#- valgrind --tool=massif ./cov -v
+
+	#Helgrind
+	#- valgrind --tool=helgrind ./cov -v
 
 cppcheck:
-	- cppcheck --enable=all --suppress=missingIncludeSystem ./src/crypt.c
+	- cppcheck --enable=all --suppress=missingIncludeSystem $(SRC_FILES)
 
+cov: 
+	$(C_COMPILER) $(CFLAGS) $(INC_DIRS) -fprofile-arcs -ftest-coverage $(SRC_FILES_UNITY) $(SRC_FILES) -o $@
 
-cov: ./src/crypt.c
-	$(CC) $(GCCFLAGS) -fprofile-arcs -ftest-coverage -o cov ./src/crypt.c ./src/aes.c ./src/blowfish.c ./src/xtea.c
-	$(GCC) $(CFLAGS) $(INC_DIRS) $(SYMBOLS) $(SRC_FILES_UNITY) -fprofile-arcs -ftest-coverage -o $(TARGET1)
+runcov:
+	- ./cov
+	- gcov -b crypt.c
+	- gcov -b blowfish.gcda
+	- gcov -b aes.gcda
+	- gcov -b xtea.gcda
+
+clean:
+	$(CLEANUP) $(TARGET1)	
+	rm -fr $(ALL) *.o cov* *.dSYM *.gcda *.gcno *.gcov cachegrind* callgrind* massif*
 
 ##### General commands #####
-#compile: 
-#	$(SRC_FILES)
-#	$(CC) $(CFLAGS) $^
+#crypt: $(SRC_FILES)
 #	$(CC) *.o -o app
 #	rm -rf *.o
 
@@ -90,8 +119,4 @@ cov: ./src/crypt.c
 	
 #blowfish.o: src/blowfish.c
 #	$(CC) $(CFLAGS) $^
-
-clean:
-#$(CLEANUP) $(TARGET1)	
-	rm -fr $(ALL) *.o cov* *.dSYM *.gcda *.gcno *.gcov cachegrind* callgrind*
 

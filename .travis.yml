@@ -18,6 +18,5 @@ addons:
 install:
   - "[ $GCC = gcc ] && export GCC=gcc || true"
 script:
-  - cd crypt 
   - make
 #  - make test
